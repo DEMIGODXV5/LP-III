@@ -1,0 +1,43 @@
+log in into trailhead using demigod gmail accnt
+
+then go to ur profile there u will see Hands on Org(practice envmt) click it
+
+create and name it.. and then it will take some time after that click LAUNCH
+
+Once that new tab opens and you see the Salesforce home screen:
+Look at the top-right corner of the page (near your profile icon).You will see a Gear Icon (⚙️). Click it.
+Select Developer Console from the dropdown menu.
+3. Start CodingA small popup window (the Developer Console) will appear. Now you can follow the steps from my previous message:Go to File > New > Apex Class.
+
+
+public class Selection_sort {
+    public static void sortarray(List<Integer> arr) {
+        Integer n = arr.size();
+        for (Integer i = 0; i < n - 1; i++) {
+            Integer minIndex = i;
+            for (Integer j = i + 1; j < n; j++) {
+                if (arr.get(j) < arr.get(minIndex)) {
+                    minIndex = j;
+                }
+            }
+            if (minIndex != i) {
+                Integer temp = arr.get(i);
+                arr.set(i, arr.get(minIndex));
+                arr.set(minIndex, temp);
+            }
+        }
+        System.debug('Sorted List: ' + arr);
+    }
+}
+
+PASTE THIS CODE
+PRESS CTRL+S TO SAVE
+
+GO TO DEBUG - Open the Execute Anonymous Window.Run this:
+
+javaList<Integer> myData = new List<Integer>{99, 10, 1, 55};
+Selection_sort.sortarray(myData);
+
+check execute logs
+
+then at the bottom - check DEBUG ONLY.. then u will the sorted list 
