@@ -1,0 +1,62 @@
+Access the EC2 DashboardLog in to your AWS Management Console. In the search bar at the top, type "EC2" and select the service. Ensure you have selected your preferred Region (e.g., US East (N. Virginia)) from the top-right corner.
+
+Initiate Instance LaunchOn the EC2 Dashboard, click the orange "Launch instance" button.
+
+Name and Tag the InstanceUnder Name and tags, enter a meaningful name (e.g., My-First-Webserver). This helps you identify the VM later in your list of resources.
+
+Select an Amazon Machine Image (AMI)Choose the operating system for your VM. For lab purposes, select Amazon Linux 2023 or Ubuntu. Look for the "Free tier eligible" label to avoid charges.
+
+Choose an Instance TypeThe instance type defines the CPU and RAM. For most practicals, select t2.micro (or t3.micro in some regions), which is the standard Free Tier eligible type.
+
+Configure Key Pair (Login)A key pair is used to securely connect to your VM via SSH.
+Click "Create new key pair".Enter a name (e.g., my-lab-key).
+Select RSA for the key type and .pem for the file format.
+Crucial: Click "Create key pair" and save the file safely. You cannot download it again later.
+
+Configure Network SettingsThis sets up your virtual firewall (Security Group).
+Ensure "Allow SSH traffic from" is checked. Set it to "My IP" for better security or "Anywhere" for easier lab access.
+If you plan to host a website, also check "Allow HTTP traffic from the internet".
+
+Configure StorageThe default is usually 8 GiB of General Purpose SSD (gp3). This is sufficient for basic practicals and falls within the Free Tier (up to 30 GiB).
+
+Review and LaunchReview your settings in the Summary panel on the right. Click "Launch instance". AWS will now provision your virtual machine
+
+
+
+
+
+
+
+1. What is SSH?
+SSH (Secure Shell) is a network protocol that allows you to log into and control your Amazon EC2 instance remotely over the internet.
+It encrypts all data sent between your computer and the server so that hackers cannot "eavesdrop" on your commands or passwords.
+By default, Linux servers use Port 22 for SSH connections.
+
+2. What is RSA?
+RSA is the mathematical algorithm used to create your keys. It uses Asymmetric Encryption, which generates two connected parts:
+Public Key: AWS keeps this and places it inside your virtual machine.
+Private Key: This is what you download. It proves your identity.
+Analogy: The Public Key is like a padlock on your server's door, and the RSA Private Key is the only physical key that fits that specific lock.
+
+3. What is .pem?
+.pem (Privacy Enhanced Mail) is simply the file format (the container) used to store your RSA private key.
+It is a plain-text file that contains a long string of encoded characters.
+When you use an SSH tool (like Terminal or PuTTY), you point the tool to this .pem file to prove you have permission to enter the server.
+
+
+How they are interrelated 
+The relationship follows this specific workflow:
+Generation: When you click "Create key pair," AWS uses the RSA algorithm to create a key pair.
+Storage: AWS stores the Public Key on the VM and gives you the Private Key in a .pem file.
+Connection: When you want to use SSH, your computer sends a request to the VM.
+Verification: The VM asks, "Do you have the key for this lock?" Your computer uses the .pem file to provide a digital signature. If the math matches, the SSH tunnel opens, and you are logged in.
+
+
+
+
+Configure Network SettingsThis sets up your virtual firewall (Security Group).Ensure "Allow SSH traffic from" is checked. 
+Set it to "My IP" for better security or "Anywhere" for easier lab access.
+This step sets up a Security Group, which acts as a virtual firewall for your instance. 
+It controls what traffic is allowed to reach your virtual machine and what is blocked. [1, 2, 3]By checking "Allow SSH traffic," you are specifically opening Port 22, which is the "door" that SSH uses to let you into the server. [4, 5, 6]
+
+If you don't configure this, the default setting is often to block all incoming traffic. This means even if your VM is "Running" perfectly, your SSH connection will "Time Out" because the firewall is silently dropping your request. [7, 8]
