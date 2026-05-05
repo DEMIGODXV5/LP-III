@@ -1,4 +1,4 @@
-print("hello")
+
 def dfs(graph, node, visited):
     visited.add(node)
     print(node, end=" ")
